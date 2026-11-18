@@ -1,0 +1,807 @@
+{
+  "dataset_version": "1.0",
+  "synthetic": true,
+  "description": "Dataset ficticio para evaluar triage de incidentes en SentinelAI. No representa incidentes reales ni indicadores de compromiso válidos.",
+  "scenarios": [
+    {
+      "scenario_id": "INC-001",
+      "name": "Acceso administrativo anómalo",
+      "expected_classification": "suspicious_requires_review",
+      "test_note": "Múltiples fallos, login exitoso, privilegios, acceso a ficheros y conexión saliente; no declarar compromiso confirmado"
+    },
+    {
+      "scenario_id": "INC-002",
+      "name": "Despliegue autorizado",
+      "expected_classification": "likely_benign",
+      "test_note": "Los fallos de acceso preceden a un despliegue autorizado dentro de una ventana y con ticket CHG-2041"
+    },
+    {
+      "scenario_id": "INC-003",
+      "name": "Evidencia incompleta",
+      "expected_classification": "inconclusive",
+      "test_note": "Telemetría incompleta y ausencia de contexto del propietario; solicitar evidencias adicionales"
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "srv-auth-01",
+      "hostname": "auth-prod-01",
+      "role": "bastion_and_auth",
+      "criticality": "high",
+      "environment": "production",
+      "owner_team": "platform-security",
+      "approved_admin_source_ips": [
+        "192.0.2.10"
+      ],
+      "software": {
+        "os": "Ubuntu 22.04",
+        "ssh": "OpenSSH 8.9"
+      },
+      "notes": "No hay ticket aprobado para altas de cuentas nuevas en el periodo observado"
+    },
+    {
+      "asset_id": "srv-web-02",
+      "hostname": "web-prod-02",
+      "role": "web_application",
+      "criticality": "medium",
+      "environment": "production",
+      "owner_team": "platform-engineering",
+      "approved_admin_source_ips": [
+        "192.0.2.15"
+      ],
+      "software": {
+        "os": "Ubuntu 24.04",
+        "app": "web-api 2.8.1"
+      },
+      "notes": "Despliegue autorizado CHG-2041, de 10:00 a 11:00 UTC"
+    },
+    {
+      "asset_id": "srv-db-03",
+      "hostname": "db-analytics-03",
+      "role": "analytics_database",
+      "criticality": "high",
+      "environment": "staging",
+      "owner_team": null,
+      "approved_admin_source_ips": null,
+      "software": {
+        "os": "Debian 12",
+        "database": "PostgreSQL 16"
+      },
+      "notes": "Inventario desactualizado; falta documentación de accesos esperados"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EVT-001",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:00:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 1
+      }
+    },
+    {
+      "event_id": "EVT-002",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:01:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 2
+      }
+    },
+    {
+      "event_id": "EVT-003",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:02:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 3
+      }
+    },
+    {
+      "event_id": "EVT-004",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:03:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 4
+      }
+    },
+    {
+      "event_id": "EVT-005",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:04:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 5
+      }
+    },
+    {
+      "event_id": "EVT-006",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:05:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 6
+      }
+    },
+    {
+      "event_id": "EVT-007",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:06:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 7
+      }
+    },
+    {
+      "event_id": "EVT-008",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:07:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 8
+      }
+    },
+    {
+      "event_id": "EVT-009",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:08:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 9
+      }
+    },
+    {
+      "event_id": "EVT-010",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:09:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 10
+      }
+    },
+    {
+      "event_id": "EVT-011",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:10:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 11
+      }
+    },
+    {
+      "event_id": "EVT-012",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:11:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "failure",
+      "description": "Error de autenticación SSH para cuenta administrativa",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "reason": "invalid_password",
+        "session_id": null,
+        "attempt_number": 12
+      }
+    },
+    {
+      "event_id": "EVT-013",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:12:00Z",
+      "event_type": "auth_login",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "success",
+      "description": "Inicio de sesión SSH exitoso tras múltiples fallos",
+      "attributes": {
+        "protocol": "ssh",
+        "port": 22,
+        "session_id": "SSH-8842",
+        "mfa": "not_configured"
+      }
+    },
+    {
+      "event_id": "EVT-014",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:13:00Z",
+      "event_type": "privilege_change",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "success",
+      "description": "Creación de nueva cuenta con permisos elevados",
+      "attributes": {
+        "created_user": "svc-backup2",
+        "role": "sudo",
+        "session_id": "SSH-8842"
+      }
+    },
+    {
+      "event_id": "EVT-015",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:14:00Z",
+      "event_type": "process_start",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "success",
+      "description": "Ejecución de una herramienta de inventario de archivos fuera de horario",
+      "attributes": {
+        "process_name": "find",
+        "command": "find /srv/app -type f",
+        "session_id": "SSH-8842"
+      }
+    },
+    {
+      "event_id": "EVT-016",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:15:00Z",
+      "event_type": "file_access",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "success",
+      "description": "Lectura de un archivo de configuración de servicio",
+      "attributes": {
+        "path": "/srv/app/config/settings.yaml",
+        "session_id": "SSH-8842"
+      }
+    },
+    {
+      "event_id": "EVT-017",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:16:00Z",
+      "event_type": "network_connection",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "success",
+      "description": "Conexión saliente inesperada detectada",
+      "attributes": {
+        "destination_ip": "198.51.100.77",
+        "destination_port": 443,
+        "bytes_sent": 184320,
+        "session_id": "SSH-8842"
+      }
+    },
+    {
+      "event_id": "EVT-018",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:17:00Z",
+      "event_type": "audit_alert",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "warning",
+      "description": "Regla de correlación detecta comportamiento inusual",
+      "attributes": {
+        "rule": "repeated_failed_auth_then_success",
+        "related_session": "SSH-8842"
+      }
+    },
+    {
+      "event_id": "EVT-019",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:18:00Z",
+      "event_type": "auth_logout",
+      "source_ip": "203.0.113.42",
+      "username": "admin",
+      "asset_id": "srv-auth-01",
+      "outcome": "success",
+      "description": "Cierre de sesión administrativa",
+      "attributes": {
+        "session_id": "SSH-8842"
+      }
+    },
+    {
+      "event_id": "EVT-020",
+      "scenario_id": "INC-001",
+      "timestamp": "2026-11-16T08:19:00Z",
+      "event_type": "service_change",
+      "source_ip": "203.0.113.42",
+      "username": "svc-backup2",
+      "asset_id": "srv-auth-01",
+      "outcome": "success",
+      "description": "Nueva tarea de mantenimiento configurada",
+      "attributes": {
+        "service": "backup-runner",
+        "change_ticket": null
+      }
+    },
+    {
+      "event_id": "EVT-021",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:00:00Z",
+      "event_type": "auth_login",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "failure",
+      "description": "Intento de autenticación fallido durante rotación de credenciales",
+      "attributes": {
+        "protocol": "ssh",
+        "reason": "expired_key",
+        "change_ticket": "CHG-2041"
+      }
+    },
+    {
+      "event_id": "EVT-022",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:01:00Z",
+      "event_type": "auth_login",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "failure",
+      "description": "Intento de autenticación fallido durante rotación de credenciales",
+      "attributes": {
+        "protocol": "ssh",
+        "reason": "expired_key",
+        "change_ticket": "CHG-2041"
+      }
+    },
+    {
+      "event_id": "EVT-023",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:02:00Z",
+      "event_type": "auth_login",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "failure",
+      "description": "Intento de autenticación fallido durante rotación de credenciales",
+      "attributes": {
+        "protocol": "ssh",
+        "reason": "expired_key",
+        "change_ticket": "CHG-2041"
+      }
+    },
+    {
+      "event_id": "EVT-024",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:03:00Z",
+      "event_type": "change_approval",
+      "source_ip": "192.0.2.15",
+      "username": "release-manager",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Cambio aprobado para despliegue programado",
+      "attributes": {
+        "change_ticket": "CHG-2041",
+        "approved_by": "release-manager",
+        "window_start": "2026-11-16T10:00:00Z",
+        "window_end": "2026-11-16T11:00:00Z"
+      }
+    },
+    {
+      "event_id": "EVT-025",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:04:00Z",
+      "event_type": "auth_login",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Acceso SSH exitoso tras actualizar llave",
+      "attributes": {
+        "protocol": "ssh",
+        "change_ticket": "CHG-2041",
+        "session_id": "DEP-221"
+      }
+    },
+    {
+      "event_id": "EVT-026",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:05:00Z",
+      "event_type": "file_change",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Actualización de paquetes de aplicación",
+      "attributes": {
+        "path": "/srv/web/releases/v2.8.1",
+        "change_ticket": "CHG-2041",
+        "session_id": "DEP-221"
+      }
+    },
+    {
+      "event_id": "EVT-027",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:06:00Z",
+      "event_type": "process_start",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Se ejecuta script de despliegue aprobado",
+      "attributes": {
+        "process_name": "deploy.sh",
+        "change_ticket": "CHG-2041",
+        "session_id": "DEP-221"
+      }
+    },
+    {
+      "event_id": "EVT-028",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:07:00Z",
+      "event_type": "service_restart",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Reinicio previsto del servicio web",
+      "attributes": {
+        "service": "web-api",
+        "change_ticket": "CHG-2041"
+      }
+    },
+    {
+      "event_id": "EVT-029",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:08:00Z",
+      "event_type": "network_connection",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Conexión a repositorio de paquetes interno",
+      "attributes": {
+        "destination_ip": "192.0.2.20",
+        "destination_port": 443,
+        "bytes_sent": 1200,
+        "change_ticket": "CHG-2041"
+      }
+    },
+    {
+      "event_id": "EVT-030",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:09:00Z",
+      "event_type": "health_check",
+      "source_ip": "192.0.2.30",
+      "username": "monitor",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Comprobación HTTP tras despliegue",
+      "attributes": {
+        "status_code": 200,
+        "latency_ms": 83,
+        "change_ticket": "CHG-2041"
+      }
+    },
+    {
+      "event_id": "EVT-031",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:10:00Z",
+      "event_type": "auth_logout",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Finaliza sesión de despliegue",
+      "attributes": {
+        "session_id": "DEP-221"
+      }
+    },
+    {
+      "event_id": "EVT-032",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:11:00Z",
+      "event_type": "change_completion",
+      "source_ip": "192.0.2.15",
+      "username": "release-manager",
+      "asset_id": "srv-web-02",
+      "outcome": "success",
+      "description": "Se cierra ticket de mantenimiento autorizado",
+      "attributes": {
+        "change_ticket": "CHG-2041",
+        "completion_status": "completed"
+      }
+    },
+    {
+      "event_id": "EVT-033",
+      "scenario_id": "INC-002",
+      "timestamp": "2026-11-16T10:12:00Z",
+      "event_type": "audit_alert",
+      "source_ip": "192.0.2.15",
+      "username": "deploy-bot",
+      "asset_id": "srv-web-02",
+      "outcome": "warning",
+      "description": "Regla genérica alertó por múltiples intentos de autenticación",
+      "attributes": {
+        "rule": "multiple_failed_logins",
+        "change_ticket": "CHG-2041"
+      }
+    },
+    {
+      "event_id": "EVT-034",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:00:00Z",
+      "event_type": "auth_login",
+      "source_ip": "198.51.100.29",
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "failure",
+      "description": "Inicio de sesión fallido",
+      "attributes": {
+        "protocol": "ssh",
+        "reason": "unknown",
+        "session_id": null
+      }
+    },
+    {
+      "event_id": "EVT-035",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:06:00Z",
+      "event_type": "auth_login",
+      "source_ip": "198.51.100.29",
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "failure",
+      "description": "Segundo inicio de sesión fallido desde la misma IP",
+      "attributes": {
+        "protocol": "ssh",
+        "reason": "unknown",
+        "session_id": null
+      }
+    },
+    {
+      "event_id": "EVT-036",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:12:00Z",
+      "event_type": "auth_login",
+      "source_ip": "198.51.100.29",
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "success",
+      "description": "Inicio de sesión exitoso",
+      "attributes": {
+        "protocol": "ssh",
+        "mfa": "unknown",
+        "session_id": "DB-991"
+      }
+    },
+    {
+      "event_id": "EVT-037",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:16:00Z",
+      "event_type": "database_query",
+      "source_ip": "198.51.100.29",
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "success",
+      "description": "Se ejecuta una consulta agregada",
+      "attributes": {
+        "query_category": "analytics",
+        "rows_returned": 120,
+        "query_text_redacted": true,
+        "session_id": "DB-991"
+      }
+    },
+    {
+      "event_id": "EVT-038",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:19:00Z",
+      "event_type": "network_connection",
+      "source_ip": "198.51.100.29",
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "success",
+      "description": "Conexión saliente observada sin clasificación de destino",
+      "attributes": {
+        "destination_ip": "203.0.113.88",
+        "destination_port": 443,
+        "bytes_sent": null,
+        "session_id": "DB-991"
+      }
+    },
+    {
+      "event_id": "EVT-039",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:20:00Z",
+      "event_type": "audit_gap",
+      "source_ip": null,
+      "username": "system",
+      "asset_id": "srv-db-03",
+      "outcome": "warning",
+      "description": "Se detecta un intervalo sin telemetría de red",
+      "attributes": {
+        "gap_minutes": 25,
+        "source": "network_sensor"
+      }
+    },
+    {
+      "event_id": "EVT-040",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:23:00Z",
+      "event_type": "auth_logout",
+      "source_ip": "198.51.100.29",
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "success",
+      "description": "Cierre de sesión",
+      "attributes": {
+        "session_id": "DB-991"
+      }
+    },
+    {
+      "event_id": "EVT-041",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:25:00Z",
+      "event_type": "inventory_gap",
+      "source_ip": null,
+      "username": "system",
+      "asset_id": "srv-db-03",
+      "outcome": "warning",
+      "description": "No existe inventario actualizado de propietario del activo",
+      "attributes": {
+        "missing_fields": [
+          "owner",
+          "approved_ip_ranges",
+          "maintenance_windows"
+        ]
+      }
+    },
+    {
+      "event_id": "EVT-042",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:26:00Z",
+      "event_type": "audit_alert",
+      "source_ip": "198.51.100.29",
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "warning",
+      "description": "Alerta no concluyente de comportamiento inusual",
+      "attributes": {
+        "rule": "first_seen_ip",
+        "triage_status": "needs_context"
+      }
+    },
+    {
+      "event_id": "EVT-043",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:27:00Z",
+      "event_type": "event_note",
+      "source_ip": null,
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "unknown",
+      "description": "No hay confirmación independiente de cambios de privilegios",
+      "attributes": {
+        "source": "analyst_note"
+      }
+    },
+    {
+      "event_id": "EVT-044",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:28:00Z",
+      "event_type": "event_note",
+      "source_ip": null,
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "unknown",
+      "description": "Se requiere verificar si la IP corresponde a VPN corporativa",
+      "attributes": {
+        "source": "analyst_note"
+      }
+    },
+    {
+      "event_id": "EVT-045",
+      "scenario_id": "INC-003",
+      "timestamp": "2026-11-16T12:29:00Z",
+      "event_type": "event_note",
+      "source_ip": null,
+      "username": "analyst",
+      "asset_id": "srv-db-03",
+      "outcome": "unknown",
+      "description": "No existe evidencia suficiente de exfiltración de datos",
+      "attributes": {
+        "source": "analyst_note"
+      }
+    }
+  ]
+}
