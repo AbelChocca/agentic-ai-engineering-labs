@@ -1,7 +1,7 @@
 
 import asyncio
 
-from mcp_client import get_mcp_tools
+from sentinelai.mcp_client import get_mcp_tools
 
 
 async def main():

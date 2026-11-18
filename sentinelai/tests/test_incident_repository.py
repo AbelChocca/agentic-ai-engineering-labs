@@ -1,5 +1,5 @@
-from models.incident import Finding, IncidentReport, Severity
-from repositories.incident_repository import IncidentRepository
+from sentinelai.models.incident import Finding, IncidentReport, Severity
+from sentinelai.repositories.incident_repository import IncidentRepository
 
 
 def test_save_and_read(tmp_path):
