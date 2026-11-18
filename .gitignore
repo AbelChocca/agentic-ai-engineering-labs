@@ -32,3 +32,5 @@ venv/
 *.log
 EOF
 
+
+*.sqlite3
